@@ -8,8 +8,8 @@ module Rbsx
 
   mattr_accessor :sx_path
 
-  def self.new
-    Client.new(sx_path: self.sx_path)
+  def self.new(sx_path: Rbsx.sx_path)
+    Client.new(sx_path: sx_path)
   end
 
   def self.configure(&block)

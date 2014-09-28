@@ -27,6 +27,16 @@ describe Rbsx do
         and_return(client)
       expect(described_class.new).to eq client
     end
+
+    context "sx_path is given" do
+      it "overrides the default" do
+        Rbsx.sx_path = "/old/sx"
+        client = double(Rbsx::Client)
+        allow(Rbsx::Client).to receive(:new).with(sx_path: "/sx/path").
+          and_return(client)
+        expect(described_class.new(sx_path: "/sx/path")).to eq client
+      end
+    end
   end
 
 end
