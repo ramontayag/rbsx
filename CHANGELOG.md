@@ -1,4 +1,4 @@
-# TBA
+# 0.1.0
 
 - Generate address from master public key
 
