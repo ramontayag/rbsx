@@ -6,10 +6,15 @@ require "rbsx/exceptions"
 
 module Rbsx
 
-  mattr_accessor :sx_path
+  CONFIG_ATTRS = %i[sx_path]
+  mattr_accessor(*CONFIG_ATTRS)
 
-  def self.new(sx_path: Rbsx.sx_path)
-    Client.new(sx_path: sx_path)
+  def self.new(args={})
+    config = CONFIG_ATTRS.inject({}) do |hash, config_attr|
+      hash[config_attr] = args[config_attr] || Rbsx.send(config_attr)
+      hash
+    end
+    Client.new(config)
   end
 
   def self.configure(&block)

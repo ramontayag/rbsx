@@ -20,21 +20,23 @@ describe Rbsx do
   end
 
   describe ".new" do
-    it "returns an instance of Client" do
-      Rbsx.sx_path = "/sx/path"
-      client = double(Rbsx::Client)
-      allow(Rbsx::Client).to receive(:new).with(sx_path: "/sx/path").
-        and_return(client)
-      expect(described_class.new).to eq client
-    end
-
-    context "sx_path is given" do
-      it "overrides the default" do
-        Rbsx.sx_path = "/old/sx"
+    described_class::CONFIG_ATTRS.each do |attr|
+      it "returns an instance of Client" do
+        Rbsx.send :"#{attr}=", "globalval"
         client = double(Rbsx::Client)
-        allow(Rbsx::Client).to receive(:new).with(sx_path: "/sx/path").
+        allow(Rbsx::Client).to receive(:new).with(attr => "globalval").
           and_return(client)
-        expect(described_class.new(sx_path: "/sx/path")).to eq client
+        expect(described_class.new).to eq client
+      end
+
+      context "#{attr} is given" do
+        it "overrides the default" do
+          Rbsx.sx_path = "globalval"
+          client = double(Rbsx::Client)
+          allow(Rbsx::Client).to receive(:new).with(attr => "localval").
+            and_return(client)
+          expect(described_class.new(attr => "localval")).to eq client
+        end
       end
     end
   end
