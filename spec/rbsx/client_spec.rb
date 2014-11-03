@@ -4,9 +4,11 @@ module Rbsx
   describe Client do
 
     describe "initialization" do
-      it "accepts sx_path" do
-        client = described_class.new(sx_path: "/path/to")
-        expect(client.sx_path).to eq "/path/to"
+      Rbsx::CONFIG_ATTRS.each do |attr|
+        it "accepts #{attr}" do
+          client = described_class.new(attr => "localval")
+          expect(client.send(attr)).to eq "localval"
+        end
       end
     end
 
@@ -40,6 +42,12 @@ module Rbsx
       end
     end
 
+    describe "#generate_address" do
+      it "generates an address based on the master public key" do
+        client = described_class.new(CONFIG.slice(:master_public_key))
+        expect(client.generate_address(0)).to eq CONFIG[:address_0]
+      end
+    end
 
   end
 end

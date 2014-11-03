@@ -1,3 +1,7 @@
+# TBA
+
+- Generate address from master public key
+
 # 0.0.2
 
 - Allow overriding of `sx_path` when instantiating: `Rbsx.new(sx_path: "/sx/path")`

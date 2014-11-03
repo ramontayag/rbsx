@@ -1,12 +1,10 @@
 require "active_support/core_ext/module/attribute_accessors"
 require "active_support/core_ext/hash/indifferent_access"
-require "rbsx/version"
-require "rbsx/client"
-require "rbsx/exceptions"
+require "active_support/core_ext/hash/slice"
 
 module Rbsx
 
-  CONFIG_ATTRS = %i[sx_path]
+  CONFIG_ATTRS = %i[sx_path master_public_key]
   mattr_accessor(*CONFIG_ATTRS)
 
   def self.new(args={})
@@ -22,3 +20,7 @@ module Rbsx
   end
 
 end
+
+require "rbsx/version"
+require "rbsx/client"
+require "rbsx/exceptions"

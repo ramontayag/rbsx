@@ -12,10 +12,12 @@ describe Rbsx do
     end
   end
 
-  describe ".sx_path" do
-    it "is a setter/getter" do
-      Rbsx.sx_path = "a"
-      expect(Rbsx.sx_path).to eq "a"
+  described_class::CONFIG_ATTRS.each do |attr|
+    describe ".#{attr}" do
+      it "is a setter/getter" do
+        Rbsx.send :"#{attr}=", "a"
+        expect(Rbsx.send(attr)).to eq "a"
+      end
     end
   end
 
@@ -24,7 +26,8 @@ describe Rbsx do
       it "returns an instance of Client" do
         Rbsx.send :"#{attr}=", "globalval"
         client = double(Rbsx::Client)
-        allow(Rbsx::Client).to receive(:new).with(attr => "globalval").
+        allow(Rbsx::Client).to receive(:new).
+          with(hash_including(attr => "globalval")).
           and_return(client)
         expect(described_class.new).to eq client
       end
@@ -33,7 +36,8 @@ describe Rbsx do
         it "overrides the default" do
           Rbsx.sx_path = "globalval"
           client = double(Rbsx::Client)
-          allow(Rbsx::Client).to receive(:new).with(attr => "localval").
+          allow(Rbsx::Client).to receive(:new).
+            with(hash_including(attr => "localval")).
             and_return(client)
           expect(described_class.new(attr => "localval")).to eq client
         end

@@ -9,6 +9,7 @@ RSpec.configure do |c|
   c.before(:each) do
     Rbsx.configure do |config|
       config.sx_path = CONFIG.fetch(:sx_path)
+      config.master_public_key = CONFIG.fetch(:master_public_key)
     end
   end
 

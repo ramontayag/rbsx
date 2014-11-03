@@ -1,14 +1,20 @@
 module Rbsx
   class Client
 
-    attr_accessor :sx_path
+    attr_accessor(*Rbsx::CONFIG_ATTRS)
 
-    def initialize(sx_path: sx_path)
-      self.sx_path = sx_path
+    def initialize(config={})
+      Rbsx::CONFIG_ATTRS.each do |attr|
+        self.send :"#{attr}=", config[attr]
+      end
     end
 
     def bci_fetch_last_height
       sx("bci-fetch-last-height").to_i
+    end
+
+    def generate_address(n)
+      sx("echo #{master_public_key} | sx genaddr #{n}").chomp
     end
 
     def sx(command)
