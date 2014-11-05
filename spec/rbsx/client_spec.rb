@@ -10,6 +10,11 @@ module Rbsx
           expect(client.send(attr)).to eq "localval"
         end
       end
+
+      it "defaults to the global config" do
+        client = described_class.new
+        expect(client.private_key).to eq CONFIG[:private_key]
+      end
     end
 
     describe "#sx" do

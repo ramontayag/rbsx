@@ -5,7 +5,7 @@ module Rbsx
 
     def initialize(config={})
       Rbsx::CONFIG_ATTRS.each do |attr|
-        self.send :"#{attr}=", config[attr]
+        self.send :"#{attr}=", config[attr] || Rbsx.send(attr)
       end
     end
 
