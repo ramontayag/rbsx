@@ -10,7 +10,7 @@ module Rbsx
     end
 
     def bci_fetch_last_height
-      sx("bci-fetch-last-height").to_i
+      sx("sx bci-fetch-last-height").to_i
     end
 
     def address(n)
@@ -22,8 +22,12 @@ module Rbsx
       sx("echo #{key} | sx addr #{n}").chomp
     end
 
+    def valid_address?(address)
+      sx("sx validaddr #{address}").include?("Success")
+    end
+
     def sx(command)
-      full_command = [sx_path, command].join(" ")
+      full_command = command.gsub(/sx/, sx_path)
       `#{full_command}`
     rescue Errno::ENOENT
       fail(

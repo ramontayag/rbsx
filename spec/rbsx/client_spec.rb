@@ -14,15 +14,15 @@ module Rbsx
 
     describe "#sx" do
       it "executes the command with the sx_path" do
-        client = described_class.new(sx_path: "/sx")
-        expect(client).to receive(:`).with("/sx mycommand")
-        client.sx "mycommand"
+        client = described_class.new(sx_path: "/path/sx")
+        expect(client).to receive(:`).with("/path/sx mycommand")
+        client.sx "sx mycommand"
       end
 
       context "given the wrong sx path" do
         it "raises an error describing what might be wrong" do
           client = described_class.new(sx_path: "/nonexistent")
-          expect { client.sx("help") }.to raise_error(
+          expect { client.sx("sx help") }.to raise_error(
             SxNotFound,
             [
               "sx path `/nonexistent` does not seem to exist.",
@@ -36,7 +36,8 @@ module Rbsx
     describe "#bci_fetch_last_height" do
       it "returns the result of `bci-fetch-last-height`" do
         client = described_class.new
-        allow(client).to receive(:sx).with("bci-fetch-last-height").
+        allow(client).to receive(:sx).
+          with("sx bci-fetch-last-height").
           and_return("12387237")
         expect(client.bci_fetch_last_height).to eq 12387237
       end
@@ -61,6 +62,19 @@ module Rbsx
           )
           expect(client.address(0)).to eq CONFIG[:address_0]
         end
+      end
+    end
+
+    describe "#valid_address?" do
+      subject { described_class.new.valid_address?(address) }
+      context "address is valid" do
+        let(:address) { CONFIG[:address_0] }
+        it { is_expected.to be true }
+      end
+
+      context "address is not valid" do
+        let(:address) { "abc" }
+        it { is_expected.to be false }
       end
     end
 
