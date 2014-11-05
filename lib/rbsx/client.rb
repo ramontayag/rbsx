@@ -13,8 +13,8 @@ module Rbsx
       sx("bci-fetch-last-height").to_i
     end
 
-    def generate_address(n)
-      sx("echo #{master_public_key} | sx genaddr #{n}").chomp
+    def address(n)
+      sx("echo #{public_key} | sx addr #{n}").chomp
     end
 
     def sx(command)

@@ -31,13 +31,13 @@ end
 ```
 rbsx = Rbsx.new(sx_path: "/path/to_sx", other: "opts") # you can optionally set the path here too
 rbsx.bci_fetch_last_height # 32132131
-rbsx.generate_address(3) # 3rd address based on `master_public_key`
+rbsx.generate_address(3) # 3rd address based on `public_key`
 ```
 
 All the options:
 
 - `sx_path`
-- `master_public_key`
+- `public_key`: Sx-generated public key only. Electrum master public keys are not supported.
 
 ## Contributing
 

@@ -42,10 +42,10 @@ module Rbsx
       end
     end
 
-    describe "#generate_address" do
+    describe "#address" do
       it "generates an address based on the master public key" do
-        client = described_class.new(CONFIG.slice(:master_public_key))
-        expect(client.generate_address(0)).to eq CONFIG[:address_0]
+        client = described_class.new(CONFIG.slice(:public_key))
+        expect(client.address(0)).to eq CONFIG[:address_0]
       end
     end
 
