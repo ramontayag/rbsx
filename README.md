@@ -32,6 +32,7 @@ end
 rbsx = Rbsx.new(sx_path: "/path/to_sx", other: "opts") # you can optionally set the path here too
 rbsx.bci_fetch_last_height # 32132131
 rbsx.generate_address(3) # 3rd address based on `public_key`
+rbsx.new_private_key # generate a new sx private key
 ```
 
 All the options:

@@ -26,6 +26,10 @@ module Rbsx
       sx("sx validaddr #{address}").include?("Success")
     end
 
+    def new_private_key
+      sx("sx privkey")
+    end
+
     def sx(command)
       full_command = command.gsub(/sx/, sx_path)
       `#{full_command}`

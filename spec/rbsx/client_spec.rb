@@ -78,5 +78,15 @@ module Rbsx
       end
     end
 
+    describe "#new_private_key" do
+      it "generates a new private key" do
+        client = described_class.new
+        private_key = client.new_private_key
+        client.private_key = private_key
+        address = client.address(0)
+        expect(client.valid_address?(address)).to be true
+      end
+    end
+
   end
 end
