@@ -43,9 +43,24 @@ module Rbsx
     end
 
     describe "#address" do
-      it "generates an address based on the master public key" do
-        client = described_class.new(CONFIG.slice(:public_key))
-        expect(client.address(0)).to eq CONFIG[:address_0]
+      context "there is a private key" do
+        it "generates an address based on the private key" do
+          client = described_class.new(
+            public_key: nil,
+            private_key: CONFIG[:private_key],
+          )
+          expect(client.address(0)).to eq CONFIG[:address_0]
+        end
+      end
+
+      context "there is no private key but there is a public key" do
+        it "generates an address based on the public key" do
+          client = described_class.new(
+            public_key: CONFIG[:public_key],
+            private_key: nil,
+          )
+          expect(client.address(0)).to eq CONFIG[:address_0]
+        end
       end
     end
 

@@ -38,6 +38,7 @@ All the options:
 
 - `sx_path`
 - `public_key`: Sx-generated public key only. Electrum master public keys are not supported.
+- `private_key`: Sx private key
 
 ## Contributing
 

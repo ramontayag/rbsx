@@ -14,7 +14,12 @@ module Rbsx
     end
 
     def address(n)
-      sx("echo #{public_key} | sx addr #{n}").chomp
+      key = if public_key == "" || public_key == nil
+              private_key
+            else
+              public_key
+            end
+      sx("echo #{key} | sx addr #{n}").chomp
     end
 
     def sx(command)

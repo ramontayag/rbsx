@@ -1,3 +1,4 @@
 sx_path: "/usr/local/bin/sx"
+private_key: "pkhere"
 public_key: "pkhere"
 address_0: "address0here"

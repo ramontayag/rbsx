@@ -4,7 +4,7 @@ require "active_support/core_ext/hash/slice"
 
 module Rbsx
 
-  CONFIG_ATTRS = %i[sx_path public_key]
+  CONFIG_ATTRS = %i[sx_path public_key private_key]
   mattr_accessor(*CONFIG_ATTRS)
 
   def self.new(args={})
